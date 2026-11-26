@@ -1,0 +1,22 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "com.sdyangtang/fengweilou-guide",
+  "title": "风味楼志 · 鲁西南风味指南",
+  "description": "Read-only official guide to Luxinan Fengweilou restaurant facts, dishes and editorial stories, with canonical source citations.",
+  "websiteUrl": "https://sdyangtang.com/",
+  "version": "0.1.0",
+  "icons": [
+    {
+      "src": "https://sdyangtang.com/assets/logo-brand.png",
+      "mimeType": "image/png",
+      "sizes": ["800x169"]
+    }
+  ],
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://mcp.sdyangtang.com/api/mcp"
+    }
+  ]
+}
+

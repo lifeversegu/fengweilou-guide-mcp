@@ -1,0 +1,21 @@
+{
+  "name": "fengweilou-public-guide-mcp",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Public read-only MCP guide for Fengweilou Zhi and Luxinan Fengweilou.",
+  "type": "module",
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "node --test --test-concurrency=1 tests/*.test.mjs",
+    "check": "node --check src/catalog.js && node --check src/server.js && node --check src/http.js && node --check src/index.js && pnpm test"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/server": "2.4.0",
+    "zod": "4.6.7"
+  },
+  "packageManager": "pnpm@11.7.0"
+}
+
