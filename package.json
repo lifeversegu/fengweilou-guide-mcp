@@ -1,6 +1,6 @@
 {
   "name": "fengweilou-public-guide-mcp",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "description": "Public read-only MCP guide for Fengweilou Zhi and Luxinan Fengweilou.",
   "type": "module",

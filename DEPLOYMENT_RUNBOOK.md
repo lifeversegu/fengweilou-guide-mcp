@@ -2,7 +2,7 @@
 
 状态：`PUBLIC_DEPLOYED_AND_VALIDATED / OFFICIAL_REGISTRY_ACTIVE`
 
-当前正式端点：`https://mcp.sdyangtang.com/api/mcp`。发布日期 2026-11-27，候选提交 `982ba25`；服务器与公网五工具验证均已通过。官方 MCP Registry 已发布 `com.sdyangtang/fengweilou-guide@0.1.0`，公开状态为 `active`；其他第三方目录仍未提交。
+当前正式端点：`https://mcp.sdyangtang.com/api/mcp`。首发日期 2026-11-27；服务器与公网五工具验证均已通过。官方 MCP Registry 已发布 `com.sdyangtang/fengweilou-guide`，公开状态为 `active`；实际运行提交和 Registry 版本以发布回执与公开回读为准。
 
 ## 1. 发布前门禁
 
@@ -20,7 +20,7 @@
 - systemd：`fengweilou-mcp.service`，不要复用任何 LifeVerse/Xiaogu 单元。
 - 环境文件：`/etc/fengweilou-mcp/fengweilou-mcp.env`，权限 `0640 root:fengweilou-mcp`。
 - 日志：journald 标识 `fengweilou-public-guide-mcp`；如需落盘，单独使用 `/var/log/fengweilou-mcp/`。
-- 匿名统计：单独使用 `/var/lib/fengweilou-mcp/metrics/`；仅聚合握手、工具发现、工具调用和 canonical 进入次数，不保存 IP、原始 User-Agent、请求正文或工具参数。
+- 匿名统计：单独使用 `/var/lib/fengweilou-mcp/metrics/`；仅聚合 MCP 初始化、工具发现和五个白名单工具的成功调用，不保存 IP、User-Agent、Referrer、请求正文、工具参数或 session。运维合成测试与真实访问分桶，默认保留 90 天。MCP 无法可靠证明后续网页访问，禁止把推断值写成精确进站转化。
 - 当前服务无需任何凭据；如未来新增密钥，必须使用 `FENGWEILOU_*` 变量和独立 secret，不得复用其他品牌。
 
 ## 3. Nginx 与公网路径计划
