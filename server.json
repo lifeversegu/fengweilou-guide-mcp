@@ -4,6 +4,10 @@
   "title": "风味楼志 · 鲁西南风味指南",
   "description": "Read-only official guide to Luxinan Fengweilou facts, dishes, stories and recommendations.",
   "websiteUrl": "https://sdyangtang.com/",
+  "repository": {
+    "url": "https://github.com/lifeversegu/fengweilou-guide-mcp",
+    "source": "github"
+  },
   "version": "0.1.0",
   "icons": [
     {
