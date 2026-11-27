@@ -1,14 +1,14 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "com.sdyangtang/fengweilou-guide",
-  "title": "山东羊汤·中国美食指南",
+  "title": "单县羊汤 · 济南美食指南",
   "description": "Read-only official guide to Luxinan Fengweilou facts, dishes, stories and recommendations.",
   "websiteUrl": "https://sdyangtang.com/",
   "repository": {
     "url": "https://github.com/lifeversegu/fengweilou-guide-mcp",
     "source": "github"
   },
-  "version": "0.1.2",
+  "version": "0.1.3",
   "icons": [
     {
       "src": "https://sdyangtang.com/assets/logo-brand.png",
