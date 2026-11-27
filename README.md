@@ -57,6 +57,7 @@ HOST=127.0.0.1 PORT=3421 FENGWEILOU_ALLOWED_HOSTS=127.0.0.1:3421 pnpm start
 - 不读取 LifeVerse 或小雇配置、代码、数据库、日志与统计。
 
 详细发布、验证与回滚边界见 [DEPLOYMENT_RUNBOOK.md](./DEPLOYMENT_RUNBOOK.md)。
+版本变更见 [CHANGELOG.md](./CHANGELOG.md)。
 
 ## 许可证与安全
 

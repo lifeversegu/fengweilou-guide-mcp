@@ -10,6 +10,7 @@
   "scripts": {
     "start": "node src/index.js",
     "test": "node --test --test-concurrency=1 tests/*.test.mjs",
+    "test:coverage": "node --test --test-concurrency=1 --experimental-test-coverage tests/*.test.mjs",
     "check": "node --check src/catalog.js && node --check src/server.js && node --check src/http.js && node --check src/metrics.js && node --check src/synthetic.js && node --check src/index.js && pnpm test"
   },
   "dependencies": {
