@@ -1,6 +1,8 @@
 import { createServer } from "node:http";
 
 import { handleMcpHttp } from "./http.js";
+import { aggregateMetrics } from "./metrics.js";
+import { SYNTHETIC_HEADER, trustedSyntheticRequest } from "./synthetic.js";
 
 const host = process.env.HOST?.trim() || "127.0.0.1";
 const port = Number.parseInt(process.env.PORT ?? "3421", 10);
@@ -24,12 +26,19 @@ function readBody(request) {
   });
 }
 
-function copyHeaders(headers) {
+function copyHeaders(headers, incoming) {
   const result = new Headers();
   for (const [name, value] of Object.entries(headers)) {
     if (Array.isArray(value)) for (const item of value) result.append(name, item);
     else if (value !== undefined) result.set(name, value);
   }
+  const synthetic = trustedSyntheticRequest({
+    host: incoming.headers.host,
+    marker: incoming.headers[SYNTHETIC_HEADER],
+    remoteAddress: incoming.socket.remoteAddress,
+  });
+  result.delete(SYNTHETIC_HEADER);
+  if (synthetic) result.set(SYNTHETIC_HEADER, "1");
   return result;
 }
 
@@ -44,10 +53,10 @@ const server = createServer(async (incoming, outgoing) => {
     const body = ["GET", "HEAD"].includes(incoming.method ?? "GET") ? undefined : await readBody(incoming);
     const request = new Request(`http://${incoming.headers.host ?? `${host}:${port}`}${incoming.url ?? "/"}`, {
       method: incoming.method,
-      headers: copyHeaders(incoming.headers),
+      headers: copyHeaders(incoming.headers, incoming),
       body,
     });
-    const response = await handleMcpHttp(request);
+    const response = await handleMcpHttp(request, { metrics: aggregateMetrics });
     outgoing.writeHead(response.status, Object.fromEntries(response.headers.entries()));
     outgoing.end(Buffer.from(await response.arrayBuffer()));
   } catch (error) {
@@ -60,4 +69,17 @@ const server = createServer(async (incoming, outgoing) => {
 server.listen(port, host, () => {
   console.log(JSON.stringify({ event: "service_started", service: "fengweilou-public-guide-mcp", host, port }));
 });
+
+async function shutdown(signal) {
+  server.close();
+  try {
+    await aggregateMetrics.flush();
+  } finally {
+    console.log(JSON.stringify({ event: "service_stopped", service: "fengweilou-public-guide-mcp", signal }));
+    process.exit(0);
+  }
+}
+
+process.once("SIGTERM", () => void shutdown("SIGTERM"));
+process.once("SIGINT", () => void shutdown("SIGINT"));
 
