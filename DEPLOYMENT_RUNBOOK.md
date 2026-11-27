@@ -1,8 +1,8 @@
 # 风味楼志 MCP 发布与回滚手册
 
-状态：`PUBLIC_DEPLOYED_AND_VALIDATED / NOT_REGISTERED`
+状态：`PUBLIC_DEPLOYED_AND_VALIDATED / OFFICIAL_REGISTRY_ACTIVE`
 
-当前正式端点：`https://mcp.sdyangtang.com/api/mcp`。发布日期 2026-11-27，候选提交 `982ba25`；服务器与公网五工具验证均已通过。第三方 Registry/目录仍未提交。
+当前正式端点：`https://mcp.sdyangtang.com/api/mcp`。发布日期 2026-11-27，候选提交 `982ba25`；服务器与公网五工具验证均已通过。官方 MCP Registry 已发布 `com.sdyangtang/fengweilou-guide@0.1.0`，公开状态为 `active`；其他第三方目录仍未提交。
 
 ## 1. 发布前门禁
 
