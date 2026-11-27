@@ -1,0 +1,60 @@
+name: Remote MCP health
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    - cron: "23 */6 * * *"
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Verify public MCP contract
+        shell: bash
+        env:
+          MCP_URL: https://mcp.sdyangtang.com/api/mcp
+        run: |
+          set -euo pipefail
+
+          request() {
+            curl --fail --silent --show-error "$MCP_URL" \
+              --header 'Content-Type: application/json' \
+              --header 'Accept: application/json, text/event-stream' \
+              --header 'X-Fengweilou-Synthetic: 1' \
+              --data "$1" \
+              | sed -n 's/^data: //p' \
+              | tail -n 1
+          }
+
+          initialize="$(request '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-11-25","capabilities":{},"clientInfo":{"name":"fengweilou-github-health","version":"1.0.0"}}}')"
+          jq -e '
+            .result.protocolVersion == "2025-11-25" and
+            .result.serverInfo.name == "fengweilou-public-guide"
+          ' <<<"$initialize"
+
+          tools="$(request '{"jsonrpc":"2.0","id":2,"method":"tools/list","params":{}}')"
+          jq -e '
+            (.result.tools | length) == 5 and
+            ([.result.tools[].name] | sort) == ([
+              "fengweilou_get_restaurant_facts",
+              "fengweilou_list_dishes",
+              "fengweilou_list_stories",
+              "fengweilou_recommend",
+              "fengweilou_search_guide"
+            ] | sort) and
+            ([.result.tools[].annotations.readOnlyHint] | all(. == true)) and
+            ([.result.tools[].annotations.destructiveHint] | all(. == false))
+          ' <<<"$tools"
+
+          facts="$(request '{"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"fengweilou_get_restaurant_facts","arguments":{}}}')"
+          jq -e '
+            .error == null and
+            .result.isError != true and
+            .result.structuredContent.restaurant.establishedYear == 2003
+          ' <<<"$facts"

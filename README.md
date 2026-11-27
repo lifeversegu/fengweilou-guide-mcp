@@ -1,4 +1,9 @@
-# 风味楼志公开只读 MCP
+# 单县羊汤 · 济南美食指南 MCP
+
+[![Official MCP Registry](https://img.shields.io/badge/MCP%20Registry-active-0b8f55)](https://registry.modelcontextprotocol.io/v0.1/servers/com.sdyangtang%2Ffengweilou-guide/versions/latest)
+[![Glama](https://glama.ai/mcp/connectors/com.sdyangtang/fengweilou-guide/badges/score.svg)](https://glama.ai/mcp/connectors/com.sdyangtang/fengweilou-guide)
+[![Remote MCP health](https://github.com/lifeversegu/fengweilou-guide-mcp/actions/workflows/remote-health.yml/badge.svg)](https://github.com/lifeversegu/fengweilou-guide-mcp/actions/workflows/remote-health.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 
 这是 `sdyangtang.com` 的独立公开 MCP，用于让支持 MCP 的 AI 获取鲁西南风味楼的公开事实、菜品和灶边故事。
 
@@ -52,4 +57,9 @@ HOST=127.0.0.1 PORT=3421 FENGWEILOU_ALLOWED_HOSTS=127.0.0.1:3421 pnpm start
 - 不读取 LifeVerse 或小雇配置、代码、数据库、日志与统计。
 
 详细发布、验证与回滚边界见 [DEPLOYMENT_RUNBOOK.md](./DEPLOYMENT_RUNBOOK.md)。
+
+## 许可证与安全
+
+代码与公开文档按 [MIT License](./LICENSE) 提供。安全问题请按
+[SECURITY.md](./SECURITY.md) 通过 GitHub 私密漏洞报告渠道提交；不要在公开 Issue 中披露漏洞细节。
 
